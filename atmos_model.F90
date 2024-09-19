@@ -131,6 +131,7 @@ end type surf_diff_type
      real, pointer, dimension(:,:) :: u_bot    => NULL() ! zonal wind component at lowest model level
      real, pointer, dimension(:,:) :: v_bot    => NULL() ! meridional wind component at lowest model level
      real, pointer, dimension(:,:) :: p_surf   => NULL() ! surface pressure 
+     real, pointer, dimension(:,:) :: hs       => NULL() ! wave height (should be in a wave container) brandon & liao
      real, pointer, dimension(:,:) :: slp      => NULL() ! sea level pressure 
      real, pointer, dimension(:,:) :: gust     => NULL() ! gustiness factor
      real, pointer, dimension(:,:) :: coszen   => NULL() ! cosine of the zenith angle
@@ -476,6 +477,7 @@ allocate ( Atmos % p_bot(is:ie,js:je) )
 allocate ( Atmos % u_bot(is:ie,js:je) )
 allocate ( Atmos % v_bot(is:ie,js:je) )
 allocate ( Atmos % p_surf(is:ie,js:je) )
+allocate ( Atmos % hs(is:ie,js:je) ) !brandon & liao
 allocate ( Atmos % slp(is:ie,js:je) )
 allocate ( Atmos % gust(is:ie,js:je) )
 allocate ( Atmos % coszen(is:ie,js:je) )
@@ -500,6 +502,7 @@ Atmos % p_bot = .99e5
 Atmos % u_bot = 0.0
 Atmos % v_bot = 0.0
 Atmos % p_surf = 1.e5
+Atmos % hs = 0.0 !brandon & liao
 Atmos % slp = 1.e5
 Atmos % gust = 0.0
 Atmos % coszen = 0.0
@@ -670,6 +673,7 @@ type(atmos_data_type), intent(in) :: atm
   write(outunit,100) ' atm%u_bot                  ', mpp_chksum(atm%u_bot                 )
   write(outunit,100) ' atm%v_bot                  ', mpp_chksum(atm%v_bot                 )
   write(outunit,100) ' atm%p_surf                 ', mpp_chksum(atm%p_surf                )
+  write(outunit,100) ' atm%hs                     ', mpp_chksum(atm%hs                    ) !brandon & liao
   write(outunit,100) ' atm%slp                    ', mpp_chksum(atm%slp                   )
   write(outunit,100) ' atm%gust                   ', mpp_chksum(atm%gust                  )
   write(outunit,100) ' atm%coszen                 ', mpp_chksum(atm%coszen                )
